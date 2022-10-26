@@ -1,4 +1,4 @@
-let express = require('express');
+const express = require('express');
 const createError = require('http-errors');
 const mongoose = require('mongoose');
 path = require('path');

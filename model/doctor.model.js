@@ -24,9 +24,13 @@ let doctorSchema = new Schema({
         type: String
     }
 },
+
     {
         collection: 'doctor'
+    },
+    {
+        timestaps: true
     }
-)
+);
 
 module.exports = mongoose.model('doctorSchema', doctorSchema)

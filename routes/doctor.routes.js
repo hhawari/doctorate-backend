@@ -13,10 +13,10 @@ doctorRoute.route('/').get((req, res) => {
     })
 })
 
-//////////////////// GET //////////////////
-doctorRoute.route('/doctor/:id').get((req, res) => {
+//////////////////// GET ////////////////// WORKED
+doctorRoute.route('/doctor/:id').get((req, res, next) => {
     doctorSchema.findById(req.params.id, (error, data) => {
-        if (error) {    
+        if (error) {
             return next(error)
         } else {
             res.json(data)
@@ -24,8 +24,8 @@ doctorRoute.route('/doctor/:id').get((req, res) => {
     })
 })
 
-////////////////// POST (ADD) ////////////////
-doctorRoute.route('/doctor/:id').post((req, res, next) => {
+////////////////// POST (ADD) //////////////// WORKED
+doctorRoute.route('/doctor').post((req, res, next) => {
     doctorSchema.create(req.body, (error, data) => {
         if (error) {
             return next(error)
@@ -35,21 +35,9 @@ doctorRoute.route('/doctor/:id').post((req, res, next) => {
     })
 })
 
-//////////////////// DELETE //////////////////
-doctorRoute.route('/doctor/:id').delete((req, res) => {
-    doctorSchema.findByIdAndRemove(req.params.id, (error, data) => {
-        if (error) {
-            return next(error)
-        } else {
-            res.status(200).json({
-                msg: data
-            })
-        }
-    })
-})
 
-//////////////////// PUT //////////////////
-doctorRoute.route('/doctor/:id').put((req, res) => {
+//////////////////// PUT ////////////////// req.body,
+doctorRoute.route('/doctor/:id').put((req, res, next) => {
     doctorSchema.findByIdAndUpdate(req.params.id, {
         $set: req.body
     }, (error, data) => {
@@ -58,6 +46,19 @@ doctorRoute.route('/doctor/:id').put((req, res) => {
         } else {
             res.json(data);
             console.log('Updated Successfully')
+        }
+    })
+})
+
+//////////////////// DELETE //////////////////
+doctorRoute.route('/doctor/:id').delete((req, res, next) => {
+    doctorSchema.findByIdAndRemove(req.params.id, (error, data) => {
+        if (error) {
+            return next(error)
+        } else {
+            res.status(200).json({
+                msg: data
+            })
         }
     })
 })
