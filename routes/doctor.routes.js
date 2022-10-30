@@ -53,6 +53,7 @@ doctorRoute.route('/doctor/:id').put((req, res, next) => {
 //////////////////// DELETE //////////////////
 doctorRoute.route('/doctor/:id').delete((req, res, next) => {
     doctorSchema.findByIdAndRemove(req.params.id, (error, data) => {
+        console.log(req.params.id)
         if (error) {
             return next(error)
         } else {
