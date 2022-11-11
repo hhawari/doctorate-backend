@@ -32,10 +32,12 @@ app.all('/*', (req, res, next) => {
 })
 
 const arztRouter = require('./routes/doctor.routes');
-const userRouter = require('./routes/user.routes');
-
+/* Codevoluation */
+/* const userRouter = require('./routes/user.routes');
+ */
 app.use('/admin', arztRouter);
-app.use('/user', userRouter);// /api than use userRouter (the Router)
+/* Codevoluation */
+/* app.use('/user', userRouter); */// /api than use userRouter (the Router)
 
 const port = process.env.PORT || 8080;
 

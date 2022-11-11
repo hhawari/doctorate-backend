@@ -1,9 +1,9 @@
-const express = require('express');
+/* Codavaluation */
+/* const express = require('express');
 const jwt = require('jsonwebtoken')
 const userRoute = express.Router();
 let User = require('../model/user.model')
 
-//  Middleware to Verify Token
 function verifyToken(res, req, next) {
     if (!req.headers.autherization) {
         return re.status(401).send('Unautherized request')
@@ -20,7 +20,6 @@ function verifyToken(res, req, next) {
     next()
 } 
 
-//// GET ////
 userRoute.route('/').get((req, res, next) => {
     res.send('This is User route')
 })
@@ -60,4 +59,4 @@ userRoute.post('/login', (req, res, next) => {
     })
 })
 
-module.exports = userRoute;
+module.exports = userRoute; */
