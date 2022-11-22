@@ -16,6 +16,7 @@ mongoose.connect(dbConfig.db, {
         console.log('Database could not be connected ' + error)
     })
 
+// Middleware:
 const app = express();
 
 app.use(bodyParser.json());
@@ -31,13 +32,14 @@ app.all('/*', (req, res, next) => {
     next();
 })
 
-const arztRouter = require('./routes/doctor.routes');
-/* Codevoluation */
-/* const userRouter = require('./routes/user.routes');
- */
-app.use('/admin', arztRouter);
-/* Codevoluation */
-/* app.use('/user', userRouter); */// /api than use userRouter (the Router)
+const doctorRoute = require('./routes/doctor.routes');
+const authRouter = require('./routes/auth.routes')
+
+app.use('/admin', doctorRoute);
+app.use('/auth', authRouter);
+
+//static folder (index.html)
+app.use(express.static(path.join(__dirname, '')));
 
 const port = process.env.PORT || 8080;
 

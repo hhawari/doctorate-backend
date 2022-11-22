@@ -3,25 +3,7 @@ const jwt = require('jsonwebtoken')
 const doctorRoute = express.Router();
 let doctorSchema = require('../model/doctor.model');
 
-//  Middleware to Verify Token
-function verifyToken(req, res, next) {
-    if (!req.headers.autherization) {
-        return re.status(401).send('Unautherized request')
-    }
-    let token = req.headers.autherization.split(' ')[1]
-    if (token === 'null') {
-        return res.status(401).send('Unautherized request')
-    }
-    let payload = jwt.verify(token, 'secretKey')
-    if (!payload) {
-        return res.status(401).send('Unautherized request')
-    }
-    req.userId = payload.subject
-    next()
-}
-
-////////////////////////////// $Doctor //////////////////////////////
-doctorRoute.route('/').get((req, res, next) => {
+doctorRoute.get('/get-doctor', (req, res, next) => {
     doctorSchema.find((error, data) => {
         if (error) {
             return next(error)
@@ -31,8 +13,7 @@ doctorRoute.route('/').get((req, res, next) => {
     })
 })
 
-/////////////////////////// GET /////////////////////////
-doctorRoute.route('/doctor/:id').get((req, res, next) => {
+doctorRoute.get('/add-doctor/:id',(req, res, next) => {
     doctorSchema.findById(req.params.id, (error, data) => {
         if (error) {
             return next(error)
@@ -42,8 +23,7 @@ doctorRoute.route('/doctor/:id').get((req, res, next) => {
     })
 })
 
-////////////////// POST (ADD) //////////////// WORKED
-doctorRoute.route('/doctor').post((req, res, next) => {
+doctorRoute.route('/add-doctor').post((req, res, next) => {
     doctorSchema.create(req.body, (error, data) => {
         if (error) {
             return next(error)
@@ -53,8 +33,7 @@ doctorRoute.route('/doctor').post((req, res, next) => {
     })
 })
 
-//////////////////// PUT ////////////////// req.body,
-doctorRoute.route('/doctor/:id').put((req, res, next) => {
+doctorRoute.route('/update-doctor/:id').put((req, res, next) => {
     doctorSchema.findByIdAndUpdate(req.params.id, {
         $set: req.body
     }, (error, data) => {
@@ -67,8 +46,7 @@ doctorRoute.route('/doctor/:id').put((req, res, next) => {
     })
 })
 
-//////////////////// DELETE //////////////////
-doctorRoute.route('/doctor/:id').delete((req, res, next) => {
+doctorRoute.route('/delete-doctor/:id').delete((req, res, next) => {
     doctorSchema.findByIdAndRemove(req.params.id, (error, data) => {
         console.log(req.params.id)
         if (error) {
@@ -77,17 +55,6 @@ doctorRoute.route('/doctor/:id').delete((req, res, next) => {
             res.status(200).json({
                 msg: data
             })
-        }
-    })
-})
-
-////////////////// POST (ADD) //////////////// WORKED
-doctorRoute.route('/doctor').post((req, res, next) => {
-    doctorSchema.create(req.body, (error, data) => {
-        if (error) {
-            return next(error)
-        } else {
-            res.json(data)
         }
     })
 })
