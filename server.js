@@ -33,10 +33,10 @@ app.all('/*', (req, res, next) => {
 })
 
 const doctorRoute = require('./routes/doctor.routes');
-const authRouter = require('./routes/auth.routes')
+const userAuthRouter = require('./routes/userAuth.routes')
 
 app.use('/admin', doctorRoute);
-app.use('/auth', authRouter);
+app.use('/userauth', userAuthRouter);
 
 //static folder (index.html)
 app.use(express.static(path.join(__dirname, '')));

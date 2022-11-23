@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let adminauthSchema = new Schema({
+let userAuthSchema = new Schema({
     displayName: {
         type: String,
         required: true,
@@ -33,4 +33,4 @@ let adminauthSchema = new Schema({
     }
 );
 
-module.exports = mongoose.model('adminauth', adminauthSchema)
+module.exports = mongoose.model('adminauth', userAuthSchema)

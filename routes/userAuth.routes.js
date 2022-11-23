@@ -1,25 +1,25 @@
 const express = require("express");
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const authRouter = express.Router();
-const adminauthSchema = require('../model/auth.model');
+const userAuthRouter = express.Router();
+const userAuthSchema = require('../model/userAuth.model');
 const checkAuth = require('../middleware/check-auth');
 
-authRouter.get('/', (req, res, next) => {
+userAuthRouter.get('/', (req, res, next) => {
     res.send('This is Admin-Auth route')
 })
 
-authRouter.get('/register', (req, res, next) => {
+userAuthRouter.get('/register', (req, res, next) => {
     res.send('This is Register route')
 })
 
 
-authRouter.post('/register', (req, res) => {
+userAuthRouter.post('/register', (req, res) => {
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) {
             return res.json({ success: false, message: "Hash Error !" })
         } else {
-            const user = new adminauthSchema({
+            const user = new userAuthSchema({
                 displayName: req.body.displayName,
                 email: req.body.email,
                 password: hash,
@@ -39,8 +39,8 @@ authRouter.post('/register', (req, res) => {
 })
 
 
-authRouter.post('/login', (req, res, next) => {
-    adminauthSchema.find({ email: req.body.email }).exec().then((result) => {
+userAuthRouter.post('/login', (req, res, next) => {
+    userAuthSchema.find({ email: req.body.email }).exec().then((result) => {
         if (result.length < 1) {
             return res.json({ success: true, message: "User Not Found!!" })
         }
@@ -61,9 +61,9 @@ authRouter.post('/login', (req, res, next) => {
     })
 })
 
-authRouter.get('/profile', checkAuth, (req, res) => {
+userAuthRouter.get('/profile', checkAuth, (req, res) => {
     const userId = req.userData.userId;
-    adminauthSchema.findById(userId).exec().then((result)=>{
+    userAuthSchema.findById(userId).exec().then((result)=>{
         res.json({success: true, data:result})
 
     }).catch(err=>{
@@ -71,5 +71,5 @@ authRouter.get('/profile', checkAuth, (req, res) => {
     })
 })
 
-module.exports = authRouter
+module.exports = userAuthRouter
 
