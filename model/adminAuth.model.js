@@ -1,12 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-let userAuthSchema = new Schema({
-    displayName: {
-        type: String,
-        required: true,
-        unique: true
-    },
+let adminAuthSchema = new Schema({
     email: {
         type: String,
         required: true,
@@ -26,11 +21,11 @@ let userAuthSchema = new Schema({
     },
 },
     {
-        collection: 'userauth'
+        collection: 'adminauth'
     },
     {
         timestaps: true
     }
 );
 
-module.exports = mongoose.model('userauth', userAuthSchema)
+module.exports = mongoose.model('adminauth', adminAuthSchema)
