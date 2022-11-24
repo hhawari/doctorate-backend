@@ -33,9 +33,8 @@ app.all('/*', (req, res, next) => {
 })
 
 const doctorRoute = require('./routes/doctor.routes');
-const userAuthRouter = require('./routes/userAuth.routes')
-const adminAuthRouter = require('./routes/adminAuth.routes')
-
+const userAuthRouter = require('./routes/userAuth.routes');
+const adminAuthRouter = require('./routes/adminAuth.routes');
 
 app.use('/admin', doctorRoute);
 app.use('/userauth', userAuthRouter);

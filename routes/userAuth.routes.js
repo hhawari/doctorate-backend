@@ -6,13 +6,12 @@ const userAuthSchema = require('../model/userAuth.model');
 const checkAuth = require('../middleware/check-auth');
 
 userAuthRouter.get('/', (req, res, next) => {
-    res.send('This is Admin-Auth route')
+    res.send('This is User-Auth route')
 })
 
 userAuthRouter.get('/register', (req, res, next) => {
     res.send('This is Register route')
 })
-
 
 userAuthRouter.post('/register', (req, res) => {
     bcrypt.hash(req.body.password, 10, (err, hash) => {
@@ -65,7 +64,6 @@ userAuthRouter.get('/profile', checkAuth, (req, res) => {
     const userId = req.userData.userId;
     userAuthSchema.findById(userId).exec().then((result)=>{
         res.json({success: true, data:result})
-
     }).catch(err=>{
         res.json({success: false, message:"Server error"})
     })

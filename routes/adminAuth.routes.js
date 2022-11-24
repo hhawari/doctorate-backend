@@ -19,6 +19,7 @@ adminAuthRouter.post('/register', (req, res) => {
             return res.json({ success: false, message: "Hash Error !" })
         } else {
             const user = new adminAuthSchema({
+                adminName: req.body.adminName,
                 email: req.body.email,
                 password: hash,
             })
@@ -50,7 +51,7 @@ adminAuthRouter.post('/login', (req, res, next) => {
                 const token = jwt.sign(payload, "webBatch")
                 return res.json({ success: true, token: token, message: "Login Successfully" })
             } else {
-                return res.json({ success: false, message: "Password does not Match!" })
+                return res.json({ success: false, message: "password does not Match!" })
             }
         })
     }).catch(err => {
@@ -58,13 +59,13 @@ adminAuthRouter.post('/login', (req, res, next) => {
     })
 })
 
+// PROFILE:
 adminAuthRouter.get('/profile', checkAuth, (req, res) => {
     const userId = req.userData.userId;
-    adminAuthSchema.findById(userId).exec().then((result) => {
+    adminAuthSchema.findById(userId).exec().then((result)=> {
         res.json({ success: true, data: result })
-
-    }).catch(err => {
-        res.json({ success: false, message: "Server error" })
+    }).catch(err=> {
+        res.json({success: false, message: "Server error"})
     })
 })
 
