@@ -36,7 +36,7 @@ const doctorRoute = require('./routes/doctor.routes');
 const userAuthRouter = require('./routes/userAuth.routes');
 const adminAuthRouter = require('./routes/adminAuth.routes');
 
-app.use('/admin', doctorRoute);
+app.use('/doctor', doctorRoute);
 app.use('/userauth', userAuthRouter);
 app.use('/adminauth', adminAuthRouter);
 
